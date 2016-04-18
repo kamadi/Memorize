@@ -40,7 +40,7 @@ public class WordRepo {
 
     public List<Word> getByLanguage(String language) throws SQLException {
         QueryBuilder<Word, String> qb = wordDao.queryBuilder();
-        qb.where().eq("language", language);
+        qb.where().eq("language_code", language);
         return qb.query();
     }
 

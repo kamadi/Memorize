@@ -2,7 +2,6 @@ package me.kamadi.memorize.database.main;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -27,7 +26,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 //        super(context, Environment.getExternalStorageDirectory().getAbsolutePath()
 //                + File.separator + DATABASE_NAME, null, DATABASE_VERSION);
-        Log.e(LOG_TAG, "database helper construct");
         DatabaseInitializer initializer = new DatabaseInitializer(context);
         try {
             initializer.createDatabase();

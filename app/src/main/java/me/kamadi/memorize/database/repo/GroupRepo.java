@@ -33,7 +33,7 @@ public class GroupRepo {
 
     public List<Group> getByLanguage(String language) throws SQLException {
         QueryBuilder<Group, String> qb = groupDao.queryBuilder();
-        qb.where().eq("language", language);
+        qb.where().eq("language_code", language);
         return qb.query();
     }
 

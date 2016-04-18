@@ -10,16 +10,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.squareup.otto.Subscribe;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.kamadi.memorize.R;
 import me.kamadi.memorize.adapter.MainPagerAdapter;
 import me.kamadi.memorize.dialog.GroupDialog;
+import me.kamadi.memorize.dialog.WordDialog;
 import me.kamadi.memorize.event.BusProvider;
+import me.kamadi.memorize.model.Group;
+import me.kamadi.memorize.model.Word;
 
 public class MainActivity extends AppCompatActivity {
-    @Bind(R.id.viewpager)
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    @Bind(R.id.view_pager)
     ViewPager viewPager;
 
     @Bind(R.id.tabs)
@@ -76,8 +82,19 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show(getSupportFragmentManager(), "GroupDialog");
                 break;
             case 1:
+                WordDialog wordDialog = new WordDialog();
+                wordDialog.show(getSupportFragmentManager(), "WordDialog");
                 break;
         }
     }
 
+    @Subscribe
+    public void handleGroupCreate(Group group) {
+        mainPagerAdapter.getGroupFragment().onGroupCreate(group);
+    }
+
+    @Subscribe
+    public void handleWordCreate(Word word) {
+        mainPagerAdapter.getWordFragment().onWordCreate(word);
+    }
 }

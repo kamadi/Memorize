@@ -19,7 +19,7 @@ public class Word {
     private String translation;
 
     @DatabaseField
-    private int transcript;
+    private String transcript;
 
     @DatabaseField
     private int rating;
@@ -27,7 +27,7 @@ public class Word {
     @DatabaseField(foreign = true, foreignColumnName = "id")
     private Group group;
 
-    @DatabaseField
+    @DatabaseField(columnName = "language_code")
     private String language;
 
     public Word() {
@@ -74,11 +74,11 @@ public class Word {
     }
 
 
-    public int getTranscript() {
+    public String getTranscript() {
         return transcript;
     }
 
-    public void setTranscript(int transcript) {
+    public void setTranscript(String transcript) {
         this.transcript = transcript;
     }
 

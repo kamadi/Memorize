@@ -2,18 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/dialog_padding"
     android:orientation="vertical"
-    android:minWidth="320dp"
     tools:context="me.kamadi.memorize.dialog.GroupDialog">
 
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:hint="@string/group_name"/>
 
     <Button
         android:id="@+id/create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textColor="@color/white"
         android:text="@string/create" />
 </LinearLayout>

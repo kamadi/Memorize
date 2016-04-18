@@ -4,7 +4,6 @@ package me.kamadi.memorize.dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,15 +35,19 @@ public class GroupDialog extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_group_dialog, container, false);
+        getDialog().setTitle(R.string.new_group);
         ButterKnife.bind(this, view);
-        BusProvider.getInstance().register(getActivity());
+        BusProvider.getInstance().register(this);
         return view;
     }
 
     @OnClick(R.id.create)
     public void onCreateButtonClick(View view) {
-        Log.e(LOG_TAG, "clicked");
-        Group group = new Group(1L, "Test", Language.ARABIC);
-        BusProvider.getInstance().post(group);
+        if (!name.getText().toString().isEmpty()) {
+            Group group = new Group(name.getText().toString(), Language.ARABIC);
+            BusProvider.getInstance().post(group);
+            this.dismiss();
+        }
+
     }
 }

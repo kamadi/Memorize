@@ -14,22 +14,26 @@ import me.kamadi.memorize.fragment.WordFragment;
  */
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
     private final String[] tabs;
+    private GroupFragment groupFragment;
+    private WordFragment wordFragment;
 
-    public MainPagerAdapter(Context context,FragmentManager fm) {
+    public MainPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         tabs = context.getResources().getStringArray(R.array.main_tabs);
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment =null;
 
-        if(position == 0){
-            fragment = new GroupFragment();
-        }else {
-            fragment = new WordFragment();
+
+        if (position == 0) {
+            groupFragment = new GroupFragment();
+            return groupFragment;
+        } else {
+            wordFragment = new WordFragment();
+            return wordFragment;
         }
-        return fragment;
+
     }
 
     @Override
@@ -40,5 +44,13 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return tabs[position];
+    }
+
+    public GroupFragment getGroupFragment() {
+        return groupFragment;
+    }
+
+    public WordFragment getWordFragment() {
+        return wordFragment;
     }
 }

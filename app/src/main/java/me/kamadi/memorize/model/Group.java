@@ -8,13 +8,13 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable
 public class Group {
-    @DatabaseField(columnName = "id", id = true)
+    @DatabaseField(generatedId = true)
     private long id;
 
     @DatabaseField
     private String name;
 
-    @DatabaseField
+    @DatabaseField(columnName = "language_code")
     private String language;
 
     public Group() {
@@ -22,6 +22,11 @@ public class Group {
 
     public Group(long id, String name, String language) {
         this.id = id;
+        this.name = name;
+        this.language = language;
+    }
+
+    public Group( String name, String language) {
         this.name = name;
         this.language = language;
     }
