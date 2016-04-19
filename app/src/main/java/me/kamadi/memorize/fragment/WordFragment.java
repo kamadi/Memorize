@@ -16,8 +16,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.kamadi.memorize.R;
+import me.kamadi.memorize.Util.ToastUtil;
 import me.kamadi.memorize.adapter.WordAdapter;
-import me.kamadi.memorize.database.repo.Repo;
+import me.kamadi.memorize.database.Repo;
 import me.kamadi.memorize.model.Language;
 import me.kamadi.memorize.model.Word;
 
@@ -47,6 +48,13 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         View view = inflater.inflate(R.layout.fragment_word, container, false);
         ButterKnife.bind(this, view);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        try {
+            repo = new Repo(getActivity());
+        } catch (SQLException e) {
+            ToastUtil.show(getActivity(),e.getMessage());
+        }
+
         return view;
     }
 
@@ -69,18 +77,18 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
 
         } catch (SQLException e) {
+            ToastUtil.show(getActivity(),e.getMessage());
             e.printStackTrace();
         }
     }
 
     private void getWords() {
         try {
-            repo = new Repo(getActivity());
             words = repo.getWordRepo().getByLanguage(Language.ARABIC);
             wordAdapter = new WordAdapter(getActivity(), words);
             listView.setAdapter(wordAdapter);
         } catch (SQLException e) {
-            e.printStackTrace();
+            ToastUtil.show(getActivity(),e.getMessage());
         }
         swipeRefreshLayout.setRefreshing(false);
     }

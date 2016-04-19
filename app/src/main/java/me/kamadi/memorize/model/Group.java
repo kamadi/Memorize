@@ -1,5 +1,8 @@
 package me.kamadi.memorize.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -7,7 +10,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * Created by Madiyar on 12.04.2016.
  */
 @DatabaseTable
-public class Group {
+public class Group implements Parcelable {
     @DatabaseField(generatedId = true)
     private long id;
 
@@ -31,6 +34,24 @@ public class Group {
         this.language = language;
     }
 
+    protected Group(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        language = in.readString();
+    }
+
+    public static final Creator<Group> CREATOR = new Creator<Group>() {
+        @Override
+        public Group createFromParcel(Parcel in) {
+            return new Group(in);
+        }
+
+        @Override
+        public Group[] newArray(int size) {
+            return new Group[size];
+        }
+    };
+
     public long getId() {
         return id;
     }
@@ -53,5 +74,17 @@ public class Group {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
+        dest.writeString(language);
     }
 }

@@ -9,7 +9,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
 public class Word {
-    @DatabaseField(columnName = "id", id = true)
+    @DatabaseField(generatedId = true)
     private long id;
 
     @DatabaseField
@@ -24,8 +24,6 @@ public class Word {
     @DatabaseField
     private int rating;
 
-    @DatabaseField(foreign = true, foreignColumnName = "id")
-    private Group group;
 
     @DatabaseField(columnName = "language_code")
     private String language;
@@ -65,14 +63,6 @@ public class Word {
         this.rating = rating;
     }
 
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
 
     public String getTranscript() {
         return transcript;
@@ -88,5 +78,17 @@ public class Word {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        boolean sameSame = false;
+
+        if (object != null && object instanceof Word)
+        {
+            sameSame = this.id == ((Word) object).id;
+        }
+
+        return sameSame;
     }
 }

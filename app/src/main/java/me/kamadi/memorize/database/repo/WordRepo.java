@@ -6,8 +6,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import java.sql.SQLException;
 import java.util.List;
 
-import me.kamadi.memorize.database.main.DatabaseHelper;
-import me.kamadi.memorize.model.Group;
+import me.kamadi.memorize.database.DatabaseHelper;
 import me.kamadi.memorize.model.Word;
 
 /**
@@ -30,12 +29,6 @@ public class WordRepo {
 
     public boolean delete(Word word) throws SQLException {
         return wordDao.delete(word) == 1;
-    }
-
-    public List<Word> getByGroup(Group group) throws SQLException {
-        QueryBuilder<Word, String> qb = wordDao.queryBuilder();
-        qb.where().eq("group", group.getId());
-        return qb.query();
     }
 
     public List<Word> getByLanguage(String language) throws SQLException {

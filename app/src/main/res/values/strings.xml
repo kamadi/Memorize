@@ -21,4 +21,6 @@
     <string name="select_group">Select group</string>
     <string name="new_word">New word</string>
     <string name="without_group">Without group</string>
+    <string name="adding_word">Adding word</string>
+    <string name="test">Test</string>
 </resources>

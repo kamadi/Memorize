@@ -6,7 +6,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import java.sql.SQLException;
 import java.util.List;
 
-import me.kamadi.memorize.database.main.DatabaseHelper;
+import me.kamadi.memorize.database.DatabaseHelper;
 import me.kamadi.memorize.model.Group;
 
 /**

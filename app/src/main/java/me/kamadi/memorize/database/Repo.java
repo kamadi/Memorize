@@ -1,10 +1,12 @@
-package me.kamadi.memorize.database.repo;
+package me.kamadi.memorize.database;
 
 import android.content.Context;
 
 import java.sql.SQLException;
 
-import me.kamadi.memorize.database.main.DatabaseHelper;
+import me.kamadi.memorize.database.repo.GroupRepo;
+import me.kamadi.memorize.database.repo.WordGroupRepo;
+import me.kamadi.memorize.database.repo.WordRepo;
 
 /**
  * Created by Madiyar on 12.04.2016.
@@ -13,11 +15,13 @@ public class Repo {
 
     private WordRepo wordRepo;
     private GroupRepo groupRepo;
+    private WordGroupRepo wordGroupRepo;
 
     public Repo(Context context) throws SQLException {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         wordRepo = new WordRepo(databaseHelper);
         groupRepo = new GroupRepo(databaseHelper);
+        wordGroupRepo = new WordGroupRepo(databaseHelper);
     }
 
     public WordRepo getWordRepo() {
@@ -26,5 +30,9 @@ public class Repo {
 
     public GroupRepo getGroupRepo() {
         return groupRepo;
+    }
+
+    public WordGroupRepo getWordGroupRepo() {
+        return wordGroupRepo;
     }
 }

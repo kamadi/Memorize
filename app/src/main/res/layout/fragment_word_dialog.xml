@@ -10,26 +10,26 @@
         android:id="@+id/word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/translation"
         android:hint="@string/word" />
 
     <EditText
         android:id="@+id/translation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/transcript"
         android:hint="@string/translation" />
 
     <EditText
         android:id="@+id/transcript"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/create"
         android:hint="@string/transcript" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/select_group"
-        android:spinnerMode="dialog"/>
+    
 
     <Button
         android:id="@+id/create"

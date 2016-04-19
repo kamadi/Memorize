@@ -1,4 +1,4 @@
-package me.kamadi.memorize.database.main;
+package me.kamadi.memorize.database;
 
 /**
  * Created by Madiyar on 09.03.2015.
@@ -33,7 +33,7 @@ public class DatabaseInitializer extends SQLiteOpenHelper {
         boolean dbExist = checkDatabase();
 
         if (!dbExist) {
-            Log.e("DatabaseInitializer", "createDatabase");
+
             this.getReadableDatabase();
             try {
                 copyDatabase();

@@ -1,6 +1,7 @@
 package me.kamadi.memorize.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.sql.SQLException;
@@ -18,15 +20,16 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.kamadi.memorize.R;
+import me.kamadi.memorize.activity.GroupActivity;
 import me.kamadi.memorize.adapter.GroupAdapter;
-import me.kamadi.memorize.database.repo.Repo;
+import me.kamadi.memorize.database.Repo;
 import me.kamadi.memorize.model.Group;
 import me.kamadi.memorize.model.Language;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class GroupFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private static final String LOG_TAG = GroupFragment.class.getSimpleName();
     @Bind(R.id.refresh)
@@ -44,6 +47,7 @@ public class GroupFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_group, container, false);
         ButterKnife.bind(this, view);
+        listView.setOnItemClickListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         return view;
     }
@@ -65,9 +69,6 @@ public class GroupFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         try {
             repo = new Repo(getActivity());
             groups = repo.getGroupRepo().getByLanguage(Language.ARABIC);
-            Group group = new Group(1L, "Test", Language.ARABIC);
-            groups.add(group);
-
             groupAdapter = new GroupAdapter(getActivity(), groups);
             listView.setAdapter(groupAdapter);
 
@@ -94,5 +95,14 @@ public class GroupFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Override
     public void onRefresh() {
         getGroups();
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Group group = (Group) parent.getItemAtPosition(position);
+        Intent intent = new Intent(getActivity(), GroupActivity.class);
+        intent.putExtra("group", group);
+        startActivity(intent);
     }
 }
