@@ -23,4 +23,9 @@
     <string name="without_group">Without group</string>
     <string name="adding_word">Adding word</string>
     <string name="test">Test</string>
+    <string name="submit">Submit</string>
+    <string name="next">Next</string>
+    <string name="test_result">Correct answer number:%1$d</string>
+    <string name="correct">Correct</string>
+    <string name="wrong">Wrong</string>
 </resources>

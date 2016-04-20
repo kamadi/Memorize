@@ -16,7 +16,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.kamadi.memorize.R;
-import me.kamadi.memorize.Util.ToastUtil;
+import me.kamadi.memorize.util.ToastUtil;
 import me.kamadi.memorize.adapter.WordAdapter;
 import me.kamadi.memorize.database.Repo;
 import me.kamadi.memorize.model.Language;

@@ -1,4 +1,4 @@
-package me.kamadi.memorize.Util;
+package me.kamadi.memorize.util;
 
 import android.content.Context;
 import android.widget.Toast;

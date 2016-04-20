@@ -19,9 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.TestActivity"
-            android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".activity.TestActivity"/>
         <activity
             android:name=".activity.GroupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
