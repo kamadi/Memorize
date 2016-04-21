@@ -78,16 +78,17 @@ public class GroupActivity extends AppCompatActivity implements SwipeRefreshLayo
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        Intent intent = new Intent();
+        intent.putExtra("group", group);
+        intent.putParcelableArrayListExtra("words", new ArrayList<>(words));
         switch (item.getItemId()) {
             case R.id.action_test:
-                Intent intent = new Intent(this, TestActivity.class);
-                intent.putExtra("group", group);
-                intent.putParcelableArrayListExtra("words", new ArrayList<Word>(words));
+                intent.setClass(this, TestActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.action_question:
-
+                intent.setClass(this, QuestionActivity.class);
+                startActivity(intent);
                 return true;
         }
 

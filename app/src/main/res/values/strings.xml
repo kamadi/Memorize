@@ -28,4 +28,9 @@
     <string name="test_result">Correct answer number:%1$d</string>
     <string name="correct">Correct</string>
     <string name="wrong">Wrong</string>
+    <string name="check">Check</string>
+    <string name="answer">Answer</string>
+    <string name="normal">Normal</string>
+    <string name="reverse">Reverse</string>
+    <string name="select_question_type">Select type</string>
 </resources>
