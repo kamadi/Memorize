@@ -3,6 +3,7 @@ package me.kamadi.memorize.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -62,6 +63,11 @@ public class TestActivity extends AppCompatActivity implements CompoundButton.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         answer1.setOnCheckedChangeListener(this);
         answer2.setOnCheckedChangeListener(this);
         answer3.setOnCheckedChangeListener(this);
@@ -78,8 +84,17 @@ public class TestActivity extends AppCompatActivity implements CompoundButton.On
         setAnswer();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void setAnswer() {
-        ArrayList<Integer>indexes = new ArrayList<>();
+        ArrayList<Integer> indexes = new ArrayList<>();
         indexes.add(index);
 
         resetRadioBtnValues();
@@ -90,16 +105,19 @@ public class TestActivity extends AppCompatActivity implements CompoundButton.On
         currentWord.setCorrect(true);
         answers.add(currentWord);
 
-        int randomIndex = getRandomIndex(indexes);
-        Word word = words.get(randomIndex);
-        word.setCorrect(false);
-        answers.add(word);
-        indexes.add(randomIndex);
+        try {
+            int randomIndex = getRandomIndex(indexes);
+            Word word = words.get(randomIndex);
+            word.setCorrect(false);
+            answers.add(word);
+            indexes.add(randomIndex);
 
-        word = words.get(getRandomIndex(indexes));
-        word.setCorrect(false);
-        answers.add(word);
-
+            word = words.get(getRandomIndex(indexes));
+            word.setCorrect(false);
+            answers.add(word);
+        } catch (StackOverflowError e) {
+            e.printStackTrace();
+        }
         Collections.shuffle(answers);
 
 
@@ -118,7 +136,7 @@ public class TestActivity extends AppCompatActivity implements CompoundButton.On
             correctAnswerIndex = 2;
     }
 
-    public int getRandomIndex(ArrayList<Integer>indexes) {
+    public int getRandomIndex(ArrayList<Integer> indexes) {
         int temp = random.nextInt(MAX_SIZE);
 
         if (!indexes.contains(temp))
@@ -153,7 +171,7 @@ public class TestActivity extends AppCompatActivity implements CompoundButton.On
                     break;
             }
 
-            switch (correctAnswerIndex){
+            switch (correctAnswerIndex) {
                 case 0:
                     answer1.setBackgroundColor(getResources().getColor(R.color.green));
                     break;

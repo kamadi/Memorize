@@ -2,7 +2,10 @@ package me.kamadi.memorize.fragment;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -43,7 +46,14 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     Repo repo;
 
     List<Word> words = new ArrayList<>();
+    SharedPreferences sharedPrefs;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +84,7 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     public void onWordCreate(Word word) {
+        word.setLanguage(sharedPrefs.getString(Language.KEY, Language.ENGLISH));
         try {
             if (repo.getWordRepo().create(word)) {
                 getWords();
@@ -87,7 +98,7 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void getWords() {
         try {
-            words = repo.getWordRepo().getByLanguage(Language.ARABIC);
+            words = repo.getWordRepo().getByLanguage(sharedPrefs.getString(Language.KEY, Language.ENGLISH));
             wordAdapter = new WordAdapter(getActivity(), words);
             listView.setAdapter(wordAdapter);
         } catch (SQLException e) {

@@ -24,7 +24,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.QuestionActivity" />
         <activity android:name=".activity.WordFullInfoActivity" />
-        <activity android:name=".activity.SettingsActivity"></activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/settings" />
     </application>
 
 </manifest>

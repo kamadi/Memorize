@@ -3,6 +3,7 @@ package me.kamadi.memorize.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
@@ -24,9 +25,22 @@ public class WordFullInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_full_info);
         ButterKnife.bind(this);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         words = getIntent().getParcelableArrayListExtra("words");
         wordPagerAdapter = new WordPagerAdapter(this, getSupportFragmentManager(), words);
         viewPager.setAdapter(wordPagerAdapter);
         viewPager.setCurrentItem(getIntent().getIntExtra("currentItem", 0));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

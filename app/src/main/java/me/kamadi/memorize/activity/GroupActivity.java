@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
@@ -56,7 +57,8 @@ public class GroupActivity extends AppCompatActivity implements SwipeRefreshLayo
         setContentView(R.layout.activity_group);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);
         group = getIntent().getParcelableExtra("group");
@@ -85,12 +87,23 @@ public class GroupActivity extends AppCompatActivity implements SwipeRefreshLayo
         intent.putParcelableArrayListExtra("words", new ArrayList<>(words));
         switch (item.getItemId()) {
             case R.id.action_test:
-                intent.setClass(this, TestActivity.class);
-                startActivity(intent);
+                if (words.size() > 2) {
+                    intent.setClass(this, TestActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, getString(R.string.game_start_error), Toast.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id.action_question:
-                intent.setClass(this, QuestionActivity.class);
-                startActivity(intent);
+                if (words.size() > 2) {
+                    intent.setClass(this, QuestionActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, getString(R.string.game_start_error), Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            case android.R.id.home:
+                finish();
                 return true;
         }
 

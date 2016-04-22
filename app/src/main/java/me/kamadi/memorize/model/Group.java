@@ -11,12 +11,21 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable
 public class Group implements Parcelable {
+    public static final Creator<Group> CREATOR = new Creator<Group>() {
+        @Override
+        public Group createFromParcel(Parcel in) {
+            return new Group(in);
+        }
+
+        @Override
+        public Group[] newArray(int size) {
+            return new Group[size];
+        }
+    };
     @DatabaseField(generatedId = true)
     private long id;
-
     @DatabaseField
     private String name;
-
     @DatabaseField(columnName = "language_code")
     private String language;
 
@@ -29,9 +38,8 @@ public class Group implements Parcelable {
         this.language = language;
     }
 
-    public Group( String name, String language) {
+    public Group(String name) {
         this.name = name;
-        this.language = language;
     }
 
     protected Group(Parcel in) {
@@ -39,18 +47,6 @@ public class Group implements Parcelable {
         name = in.readString();
         language = in.readString();
     }
-
-    public static final Creator<Group> CREATOR = new Creator<Group>() {
-        @Override
-        public Group createFromParcel(Parcel in) {
-            return new Group(in);
-        }
-
-        @Override
-        public Group[] newArray(int size) {
-            return new Group[size];
-        }
-    };
 
     public long getId() {
         return id;

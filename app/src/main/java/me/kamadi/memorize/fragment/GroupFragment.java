@@ -2,11 +2,12 @@ package me.kamadi.memorize.fragment;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,15 @@ public class GroupFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     Repo repo;
     List<Group> groups = new ArrayList<>();
 
+    SharedPreferences sharedPrefs;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,7 +78,7 @@ public class GroupFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     public void getGroups() {
         try {
             repo = new Repo(getActivity());
-            groups = repo.getGroupRepo().getByLanguage(Language.ARABIC);
+            groups = repo.getGroupRepo().getByLanguage(sharedPrefs.getString(Language.KEY, Language.ENGLISH));
             groupAdapter = new GroupAdapter(getActivity(), groups);
             listView.setAdapter(groupAdapter);
 
@@ -79,14 +89,12 @@ public class GroupFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     public void onGroupCreate(Group group) {
-        Log.e(LOG_TAG, group.getName() + "");
+        group.setLanguage(sharedPrefs.getString(Language.KEY, Language.ENGLISH));
         try {
             if (repo.getGroupRepo().create(group)) {
-                Log.e(LOG_TAG, group.getName() + " created");
                 getGroups();
             }
         } catch (SQLException e) {
-            Log.e(LOG_TAG, group.getName() + " error");
             e.printStackTrace();
         }
 

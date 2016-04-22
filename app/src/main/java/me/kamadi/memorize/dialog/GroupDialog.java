@@ -16,7 +16,6 @@ import butterknife.OnClick;
 import me.kamadi.memorize.R;
 import me.kamadi.memorize.event.BusProvider;
 import me.kamadi.memorize.model.Group;
-import me.kamadi.memorize.model.Language;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +43,7 @@ public class GroupDialog extends DialogFragment {
     @OnClick(R.id.create)
     public void onCreateButtonClick(View view) {
         if (!name.getText().toString().isEmpty()) {
-            Group group = new Group(name.getText().toString(), Language.ARABIC);
+            Group group = new Group(name.getText().toString());
             BusProvider.getInstance().post(group);
             this.dismiss();
         }

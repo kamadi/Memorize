@@ -13,7 +13,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.kamadi.memorize.R;
 import me.kamadi.memorize.event.BusProvider;
-import me.kamadi.memorize.model.Language;
 import me.kamadi.memorize.model.Word;
 
 /**
@@ -56,9 +55,6 @@ public class WordDialog extends DialogFragment {
             newWord.setWord(word.getText().toString());
             newWord.setTranslation(translation.getText().toString());
             newWord.setTranscript(transcript.getText().toString());
-
-            newWord.setLanguage(Language.ARABIC);
-
             BusProvider.getInstance().post(newWord);
             this.dismiss();
         }
