@@ -1,12 +1,14 @@
 package me.kamadi.memorize.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.sql.SQLException;
@@ -16,16 +18,17 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.kamadi.memorize.R;
-import me.kamadi.memorize.util.ToastUtil;
+import me.kamadi.memorize.activity.WordFullInfoActivity;
 import me.kamadi.memorize.adapter.WordAdapter;
 import me.kamadi.memorize.database.Repo;
 import me.kamadi.memorize.model.Language;
 import me.kamadi.memorize.model.Word;
+import me.kamadi.memorize.util.ToastUtil;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private static final String LOG_TAG = WordFragment.class.getSimpleName();
 
@@ -48,11 +51,11 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         View view = inflater.inflate(R.layout.fragment_word, container, false);
         ButterKnife.bind(this, view);
         swipeRefreshLayout.setOnRefreshListener(this);
-
+        listView.setOnItemClickListener(this);
         try {
             repo = new Repo(getActivity());
         } catch (SQLException e) {
-            ToastUtil.show(getActivity(),e.getMessage());
+            ToastUtil.show(getActivity(), e.getMessage());
         }
 
         return view;
@@ -77,7 +80,7 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
 
         } catch (SQLException e) {
-            ToastUtil.show(getActivity(),e.getMessage());
+            ToastUtil.show(getActivity(), e.getMessage());
             e.printStackTrace();
         }
     }
@@ -88,7 +91,7 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             wordAdapter = new WordAdapter(getActivity(), words);
             listView.setAdapter(wordAdapter);
         } catch (SQLException e) {
-            ToastUtil.show(getActivity(),e.getMessage());
+            ToastUtil.show(getActivity(), e.getMessage());
         }
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -96,5 +99,13 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onRefresh() {
         getWords();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), WordFullInfoActivity.class);
+        intent.putParcelableArrayListExtra("words", new ArrayList<>(words));
+        intent.putExtra("currentItem", position);
+        startActivity(intent);
     }
 }

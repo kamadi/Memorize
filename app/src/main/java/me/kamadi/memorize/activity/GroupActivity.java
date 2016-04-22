@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.squareup.otto.Subscribe;
@@ -28,7 +29,7 @@ import me.kamadi.memorize.model.Group;
 import me.kamadi.memorize.model.Word;
 import me.kamadi.memorize.model.WordGroup;
 
-public class GroupActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class GroupActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private static final String LOG_TAG = GroupActivity.class.getSimpleName();
 
@@ -57,6 +58,7 @@ public class GroupActivity extends AppCompatActivity implements SwipeRefreshLayo
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         swipeRefreshLayout.setOnRefreshListener(this);
+        listView.setOnItemClickListener(this);
         group = getIntent().getParcelableExtra("group");
         setTitle(group.getName());
 
@@ -146,5 +148,13 @@ public class GroupActivity extends AppCompatActivity implements SwipeRefreshLayo
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this, WordFullInfoActivity.class);
+        intent.putParcelableArrayListExtra("words", new ArrayList<>(words));
+        intent.putExtra("currentItem", position);
+        startActivity(intent);
     }
 }

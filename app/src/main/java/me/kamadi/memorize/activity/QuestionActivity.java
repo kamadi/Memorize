@@ -36,6 +36,9 @@ public class QuestionActivity extends AppCompatActivity {
     @Bind(R.id.answer)
     EditText answer;
 
+    @Bind(R.id.check)
+    Button btnCheck;
+
     @Bind(R.id.next)
     Button btnNext;
 
@@ -49,7 +52,7 @@ public class QuestionActivity extends AppCompatActivity {
     private int index = 0;
     private Word currentWord;
     private int correctAnswerCount = 0;
-    private int TYPE;
+    private int TYPE = NORMAL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,7 @@ public class QuestionActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        setInfo();
+
         showDialog();
     }
 
@@ -73,7 +76,6 @@ public class QuestionActivity extends AppCompatActivity {
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setCancelable(false);
         adb.setTitle(getString(R.string.select_question_type));
-         AlertDialog dialog =null;
         CharSequence items[] = new CharSequence[]{getString(R.string.normal), getString(R.string.reverse)};
         adb.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
 
@@ -84,41 +86,67 @@ public class QuestionActivity extends AppCompatActivity {
                 } else {
                     TYPE = REVERSE;
                 }
-//                dialog.dismiss();
+                d.dismiss();
+                setInfo();
             }
 
         });
-        dialog = adb.create();
-
-
-        dialog.show();
+        adb.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                setInfo();
+            }
+        });
+        adb.show();
     }
 
     public void setInfo() {
+        btnCheck.setVisibility(View.VISIBLE);
         btnNext.setVisibility(View.GONE);
         txtTranslation.setText("");
         txtWord.setBackgroundColor(getResources().getColor(R.color.white));
         answer.setText("");
         currentWord = words.get(index);
-        txtWord.setText(currentWord.getWord());
+        if (TYPE == NORMAL) {
+            txtWord.setText(currentWord.getWord());
+        } else {
+            txtWord.setText(currentWord.getTranslation());
+        }
+
     }
 
     @OnClick(R.id.check)
     public void onCheckBtnClick(View view) {
-        if (currentWord.getTranslation().equals(answer.getText().toString())) {
+        boolean isCorrect = true;
+
+        if ((TYPE == NORMAL && currentWord.getTranslation().equals(answer.getText().toString())) ||
+                (TYPE == REVERSE && currentWord.getWord().equals(answer.getText().toString()))) {
+            isCorrect = true;
+        } else {
+            isCorrect = false;
+        }
+
+        if (isCorrect) {
             txtWord.setBackgroundColor(getResources().getColor(R.color.green));
             correctAnswerCount++;
         } else {
             txtWord.setBackgroundColor(getResources().getColor(R.color.red));
         }
 
-        txtTranslation.setText(currentWord.getTranslation());
+        if (TYPE == NORMAL) {
+            txtTranslation.setText(currentWord.getTranslation());
+        } else {
+            txtTranslation.setText(currentWord.getWord());
+        }
+
         if (index + 1 < MAX_SIZE) {
+            btnCheck.setVisibility(View.GONE);
             btnNext.setVisibility(View.VISIBLE);
         } else {
-            questionLayout.setVisibility(View.GONE);
-            txtResult.setVisibility(View.VISIBLE);
-            txtResult.setText(String.format(getString(R.string.test_result), correctAnswerCount));
+            btnCheck.setVisibility(View.GONE);
+            btnNext.setText(getString(R.string.finish));
+            btnNext.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -127,6 +155,10 @@ public class QuestionActivity extends AppCompatActivity {
         if (index + 1 < MAX_SIZE) {
             index++;
             setInfo();
+        } else {
+            questionLayout.setVisibility(View.GONE);
+            txtResult.setVisibility(View.VISIBLE);
+            txtResult.setText(String.format(getString(R.string.test_result), correctAnswerCount));
         }
     }
 

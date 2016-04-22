@@ -22,7 +22,9 @@
         <activity
             android:name=".activity.GroupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.QuestionActivity"></activity>
+        <activity android:name=".activity.QuestionActivity" />
+        <activity android:name=".activity.WordFullInfoActivity" />
+        <activity android:name=".activity.SettingsActivity"></activity>
     </application>
 
 </manifest>

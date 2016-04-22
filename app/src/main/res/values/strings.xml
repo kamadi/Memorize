@@ -33,4 +33,5 @@
     <string name="normal">Normal</string>
     <string name="reverse">Reverse</string>
     <string name="select_question_type">Select type</string>
+    <string name="finish">Finish</string>
 </resources>
