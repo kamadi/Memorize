@@ -3,6 +3,7 @@ package me.kamadi.memorize.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -75,6 +76,7 @@ public class TestActivity extends AppCompatActivity implements CompoundButton.On
         group = getIntent().getParcelableExtra("group");
         words = getIntent().getParcelableArrayListExtra("words");
         MAX_SIZE = words.size();
+        Log.e(LOG_TAG, "max size:" + MAX_SIZE);
         Collections.shuffle(words);
     }
 
@@ -107,12 +109,15 @@ public class TestActivity extends AppCompatActivity implements CompoundButton.On
 
         try {
             int randomIndex = getRandomIndex(indexes);
+            Log.e(LOG_TAG, "random index:" + randomIndex);
             Word word = words.get(randomIndex);
             word.setCorrect(false);
             answers.add(word);
             indexes.add(randomIndex);
 
-            word = words.get(getRandomIndex(indexes));
+            randomIndex = getRandomIndex(indexes);
+            Log.e(LOG_TAG, "random index:" + randomIndex);
+            word = words.get(randomIndex);
             word.setCorrect(false);
             answers.add(word);
         } catch (StackOverflowError e) {

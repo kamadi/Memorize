@@ -1,6 +1,8 @@
 package me.kamadi.memorize.dialog;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -38,11 +40,19 @@ public class WordListDialog extends DialogFragment implements SwipeRefreshLayout
     private List<Word> words = new ArrayList<>();
     private WordAdapter wordAdapter;
 
+    SharedPreferences sharedPrefs;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_word_list, container, false);
+        View view = inflater.inflate(R.layout.dialog_list, container, false);
         getDialog().setTitle(R.string.adding_word);
         ButterKnife.bind(this, view);
 
@@ -71,7 +81,7 @@ public class WordListDialog extends DialogFragment implements SwipeRefreshLayout
 
     private void getWords() {
         try {
-            words = repo.getWordRepo().getByLanguage(Language.ARABIC);
+            words = repo.getWordRepo().getByLanguage(sharedPrefs.getString(Language.KEY, Language.ENGLISH));
         } catch (SQLException e) {
             e.printStackTrace();
         }

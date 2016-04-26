@@ -11,7 +11,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 
 @DatabaseTable
-public class Word implements Parcelable {
+public class    Word implements Parcelable {
     public static final Creator<Word> CREATOR = new Creator<Word>() {
         @Override
         public Word createFromParcel(Parcel in) {

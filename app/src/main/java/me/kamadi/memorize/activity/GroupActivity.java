@@ -125,7 +125,8 @@ public class GroupActivity extends AppCompatActivity implements SwipeRefreshLayo
     private void getWords() {
         try {
             words.clear();
-            for (WordGroup wordGroup : repo.getWordGroupRepo().getByGroup(group)) {
+            List<WordGroup>wordGroups = repo.getWordGroupRepo().getByGroup(group);
+            for (WordGroup wordGroup : wordGroups) {
                 words.add(wordGroup.getWord());
             }
         } catch (SQLException e) {
