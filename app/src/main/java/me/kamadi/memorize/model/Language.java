@@ -6,6 +6,6 @@ package me.kamadi.memorize.model;
 
 public class Language {
     public static final String KEY = "prefLanguage";
-    public static String ARABIC = "ar";
-    public static String ENGLISH = "en";
+    public static final String ARABIC = "ar";
+    public static final String ENGLISH = "en";
 }

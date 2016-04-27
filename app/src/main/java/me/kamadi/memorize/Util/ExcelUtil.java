@@ -14,8 +14,8 @@ import jxl.CellType;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import me.kamadi.memorize.App;
 import me.kamadi.memorize.database.Repo;
-import me.kamadi.memorize.model.Language;
 import me.kamadi.memorize.model.Word;
 
 /**
@@ -37,7 +37,7 @@ public class ExcelUtil {
         Word word;
         for (int i = 1; i < sheet.getRows(); i++) {
             word = new Word();
-            word.setLanguage(Language.ENGLISH);
+            word.setLanguage(App.getInstance().getLanguage());
             Cell cell = sheet.getCell(0, i);
             if (!cell.getType().equals(CellType.EMPTY)) {
                 Log.e(LOG_TAG, cell.getContents());
