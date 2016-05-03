@@ -24,7 +24,7 @@ import me.kamadi.memorize.model.Word;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WordFullInfoFragment extends Fragment implements TextToSpeech.OnInitListener {
+public class WordDetailFragment extends Fragment implements TextToSpeech.OnInitListener {
 
     @Bind(R.id.word)
     TextView txtWord;
@@ -34,11 +34,15 @@ public class WordFullInfoFragment extends Fragment implements TextToSpeech.OnIni
 
     @Bind(R.id.translation)
     TextView txtTranslation;
+
+    @Bind(R.id.example)
+    TextView txtExample;
+
     TextToSpeech textToSpeech;
     private Word word;
 
-    public static WordFullInfoFragment newInstance(Word word) {
-        WordFullInfoFragment fragment = new WordFullInfoFragment();
+    public static WordDetailFragment newInstance(Word word) {
+        WordDetailFragment fragment = new WordDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("word", word);
         fragment.setArguments(bundle);
@@ -55,7 +59,7 @@ public class WordFullInfoFragment extends Fragment implements TextToSpeech.OnIni
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_word_full_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -66,6 +70,7 @@ public class WordFullInfoFragment extends Fragment implements TextToSpeech.OnIni
         txtWord.setText(word.getWord());
         txtTranslation.setText(word.getTranslation());
         txtTranscript.setText(word.getTranscript());
+        txtExample.setText(word.getExample());
     }
 
     @OnClick(R.id.word)

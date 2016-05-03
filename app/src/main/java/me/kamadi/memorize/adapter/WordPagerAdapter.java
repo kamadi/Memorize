@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
-import me.kamadi.memorize.fragment.WordFullInfoFragment;
+import me.kamadi.memorize.fragment.WordDetailFragment;
 import me.kamadi.memorize.model.Word;
 
 /**
@@ -26,7 +26,7 @@ public class WordPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return WordFullInfoFragment.newInstance(words.get(position));
+        return WordDetailFragment.newInstance(words.get(position));
     }
 
     @Override

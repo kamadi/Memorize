@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context="me.kamadi.memorize.fragment.WordFullInfoFragment">
+    tools:context=".fragment.WordDetailFragment">
 
 
     <TextView
@@ -33,5 +33,11 @@
         android:textIsSelectable="true"
         android:textSize="@dimen/word_size" />
 
-
+    <TextView
+        android:id="@+id/example"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transcript"
+        android:textIsSelectable="true"
+        android:textSize="@dimen/word_size" />
 </RelativeLayout>

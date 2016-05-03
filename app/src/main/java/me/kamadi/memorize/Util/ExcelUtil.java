@@ -25,6 +25,7 @@ public class ExcelUtil {
     private static final String LOG_TAG = ExcelUtil.class.getSimpleName();
     private AssetManager assetManager;
     private Repo repo;
+
     public ExcelUtil(Context context) throws SQLException {
         this.assetManager = context.getAssets();
         this.repo = new Repo(context);
@@ -49,14 +50,28 @@ public class ExcelUtil {
                 Log.e(LOG_TAG, cell.getContents());
                 word.setTranslation(cell.getContents());
             }
+
             try {
+
                 cell = sheet.getCell(2, i);
+                if (!cell.getType().equals(CellType.EMPTY)) {
+                    Log.e(LOG_TAG, cell.getContents());
+                    word.setExample(cell.getContents());
+                }
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+                word.setExample("");
+            }
+
+            try {
+                cell = sheet.getCell(3, i);
                 if (!cell.getType().equals(CellType.EMPTY)) {
                     Log.e(LOG_TAG, cell.getContents());
                     word.setTranscript(cell.getContents());
                 }
-            }catch (ArrayIndexOutOfBoundsException e){
-                e.printStackTrace();
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+                word.setTranscript("");
             }
             repo.getWordRepo().create(word);
         }

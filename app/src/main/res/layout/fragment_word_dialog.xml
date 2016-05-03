@@ -10,26 +10,33 @@
         android:id="@+id/word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:hint="@string/word"
         android:nextFocusDown="@+id/translation"
-        android:hint="@string/word" />
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/translation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:hint="@string/translation"
         android:nextFocusDown="@+id/transcript"
-        android:hint="@string/translation" />
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/transcript"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:hint="@string/transcript"
+        android:nextFocusDown="@+id/example"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/example"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/example"
         android:nextFocusDown="@+id/create"
-        android:hint="@string/transcript" />
-    
+        android:singleLine="false" />
 
     <Button
         android:id="@+id/create"

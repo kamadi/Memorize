@@ -41,4 +41,5 @@
     <string name="game_start_error">You must add at least 3 words to the group</string>
     <string name="action_import">Import words</string>
     <string name="choose_file">Choose file</string>
+    <string name="example">Example</string>
 </resources>

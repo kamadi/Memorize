@@ -30,8 +30,13 @@ public class WordDialog extends DialogFragment {
     @Bind(R.id.transcript)
     EditText transcript;
 
+    @Bind(R.id.example)
+    EditText example;
+
+
     @Bind(R.id.create)
     Button create;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,8 +51,6 @@ public class WordDialog extends DialogFragment {
     }
 
 
-
-
     @OnClick(R.id.create)
     public void onCreateButtonClick(View view) {
         if (!word.getText().toString().isEmpty() && !translation.getText().toString().isEmpty()) {
@@ -55,6 +58,7 @@ public class WordDialog extends DialogFragment {
             newWord.setWord(word.getText().toString());
             newWord.setTranslation(translation.getText().toString());
             newWord.setTranscript(transcript.getText().toString());
+            newWord.setExample(example.getText().toString());
             BusProvider.getInstance().post(newWord);
             this.dismiss();
         }

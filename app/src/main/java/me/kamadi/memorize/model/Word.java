@@ -11,7 +11,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 
 @DatabaseTable
-public class    Word implements Parcelable {
+public class Word implements Parcelable {
     public static final Creator<Word> CREATOR = new Creator<Word>() {
         @Override
         public Word createFromParcel(Parcel in) {
@@ -32,6 +32,8 @@ public class    Word implements Parcelable {
     @DatabaseField
     private String transcript;
     @DatabaseField
+    private String example;
+    @DatabaseField
     private int rating;
     @DatabaseField(columnName = "language_code")
     private String language;
@@ -46,6 +48,7 @@ public class    Word implements Parcelable {
         word = in.readString();
         translation = in.readString();
         transcript = in.readString();
+        example = in.readString();
         rating = in.readInt();
         language = in.readString();
     }
@@ -91,6 +94,14 @@ public class    Word implements Parcelable {
         this.transcript = transcript;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
     public String getLanguage() {
         return language;
     }
@@ -121,6 +132,7 @@ public class    Word implements Parcelable {
         dest.writeString(word);
         dest.writeString(translation);
         dest.writeString(transcript);
+        dest.writeString(example);
         dest.writeInt(rating);
         dest.writeString(language);
     }
