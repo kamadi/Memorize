@@ -166,7 +166,7 @@ public class GroupActivity extends AppCompatActivity implements SwipeRefreshLayo
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, WordFullInfoActivity.class);
+        Intent intent = new Intent(this, WordDetailActivity.class);
         intent.putParcelableArrayListExtra("words", new ArrayList<>(words));
         intent.putExtra("currentItem", position);
         startActivity(intent);

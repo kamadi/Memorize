@@ -30,6 +30,15 @@ public class WordPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    public void update(ArrayList<Word>words){
+        this.words = words;
+        notifyDataSetChanged();
+    }
+    @Override
     public int getCount() {
         return words.size();
     }

@@ -39,10 +39,10 @@
         android:singleLine="false" />
 
     <Button
-        android:id="@+id/create"
+        android:id="@+id/save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:text="@string/create"
+        android:text="@string/save"
         android:textColor="@color/white" />
 </LinearLayout>

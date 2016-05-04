@@ -42,4 +42,9 @@
     <string name="action_import">Import words</string>
     <string name="choose_file">Choose file</string>
     <string name="example">Example</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="confirmation_question">Do you really want to delete this word?</string>
 </resources>

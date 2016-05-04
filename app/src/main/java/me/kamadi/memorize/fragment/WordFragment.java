@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.kamadi.memorize.R;
-import me.kamadi.memorize.activity.WordFullInfoActivity;
+import me.kamadi.memorize.activity.WordDetailActivity;
 import me.kamadi.memorize.adapter.WordAdapter;
 import me.kamadi.memorize.database.Repo;
 import me.kamadi.memorize.model.Language;
@@ -114,7 +114,7 @@ public class WordFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getActivity(), WordFullInfoActivity.class);
+        Intent intent = new Intent(getActivity(), WordDetailActivity.class);
         intent.putParcelableArrayListExtra("words", new ArrayList<>(words));
         intent.putExtra("currentItem", position);
         startActivity(intent);

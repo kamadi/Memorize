@@ -36,8 +36,19 @@ public class GroupDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_group_dialog, container, false);
         getDialog().setTitle(R.string.new_group);
         ButterKnife.bind(this, view);
-        BusProvider.getInstance().register(this);
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
     }
 
     @OnClick(R.id.create)

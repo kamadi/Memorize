@@ -46,9 +46,19 @@ public class FileChooseDialog extends DialogFragment implements SwipeRefreshLayo
         ButterKnife.bind(this, view);
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);
-        BusProvider.getInstance().register(this);
-
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
     }
 
     @Override

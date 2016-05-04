@@ -58,13 +58,24 @@ public class WordListDialog extends DialogFragment implements SwipeRefreshLayout
 
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);
-        BusProvider.getInstance().register(this);
         try {
             repo = new Repo(getActivity());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
     }
 
     @Override

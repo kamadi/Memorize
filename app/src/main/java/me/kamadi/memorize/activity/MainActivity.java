@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        BusProvider.getInstance().register(this);
-
         setSupportActionBar(toolbar);
         mainPagerAdapter = new MainPagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(mainPagerAdapter);
@@ -65,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
     }
 
     @Override
@@ -105,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
     public void handleWordCreate(Word word) {
         mainPagerAdapter.getWordFragment().onWordCreate(word);
     }
+
 
     @Subscribe
     public void handleFileChoose(String file) {

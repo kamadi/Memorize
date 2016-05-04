@@ -25,7 +25,7 @@
             android:name=".activity.GroupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.QuestionActivity" />
-        <activity android:name=".activity.WordFullInfoActivity" />
+        <activity android:name=".activity.WordDetailActivity" />
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/settings" />
