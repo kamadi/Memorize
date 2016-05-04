@@ -13,12 +13,13 @@ import me.kamadi.memorize.database.repo.WordRepo;
  */
 public class Repo {
 
+    private final DatabaseHelper databaseHelper;
     private WordRepo wordRepo;
     private GroupRepo groupRepo;
     private WordGroupRepo wordGroupRepo;
 
     public Repo(Context context) throws SQLException {
-        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        databaseHelper = new DatabaseHelper(context);
         wordRepo = new WordRepo(databaseHelper);
         groupRepo = new GroupRepo(databaseHelper);
         wordGroupRepo = new WordGroupRepo(databaseHelper);
@@ -34,5 +35,9 @@ public class Repo {
 
     public WordGroupRepo getWordGroupRepo() {
         return wordGroupRepo;
+    }
+
+    public void close(){
+        databaseHelper.close();
     }
 }

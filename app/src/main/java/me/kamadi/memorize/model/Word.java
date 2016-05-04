@@ -43,6 +43,23 @@ public class Word implements Parcelable {
     public Word() {
     }
 
+    public Word(String word, String translation, String transcript, String example, String language) {
+        this.word = word;
+        this.translation = translation;
+        this.transcript = transcript;
+        this.example = example;
+        this.language = language;
+    }
+
+    public Word(String word, String translation, String transcript, String example, int rating, String language) {
+        this.word = word;
+        this.translation = translation;
+        this.transcript = transcript;
+        this.example = example;
+        this.rating = rating;
+        this.language = language;
+    }
+
     protected Word(Parcel in) {
         id = in.readLong();
         word = in.readString();
